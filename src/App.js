@@ -22,36 +22,46 @@ import "./App.css";
 //   );
 // }
 
-function Header() {
+function Header(props) {
   return (
     <header>
-      <h1>Iris' Kitchen</h1>
+      <h1>{props.name}'s Kitchen</h1>
     </header>
   );
 }
 
-function Main() {
+function Main(props) {
   return (
     <section>
-      <p>We server the most delicious food here!</p>
+      <p>We server the most {props.adjective} food here!</p>
+      <ul style={{ textAlign: "left" }}>
+        {props.dishes.map((dish) => (
+          <li key={dish.id}>{dish.title}</li>
+        ))}
+      </ul>
     </section>
   );
 }
 
-function Footer() {
+function Footer(props) {
   return (
     <footer>
-      <p>It's true!</p>
+      <p>{props.year}</p>
     </footer>
   );
 }
 
+const dishes = ["Sushi", "Singapore Fried Noodles", "Beef Ball", "Waffles"];
+
+const dishObjects = dishes.map((dish, i) => ({ id: i, title: dish }));
+console.log(dishObjects);
+
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Main />
-      <Footer />
+      <Header name="Iris" />
+      <Main adjective="amazing" dishes={dishObjects} />
+      <Footer year={new Date().getFullYear()} />
     </div>
   );
 }
